@@ -1,0 +1,32 @@
+<form class="addingForm" [formGroup]="AddNewZoneGroup">
+  <mat-form-field class="formItem">
+      <mat-label>Временная зона</mat-label>
+      <input matInput id="offset" formControlName="offset">
+      <mat-error *ngIf='this.AddNewZoneGroup.controls["offset"].invalid
+       && (this.AddNewZoneGroup.controls["offset"].dirty
+      || this.AddNewZoneGroup.controls["offset"].touched)'>
+      Часовой пояс должен быть + или - и номер смещения, например: +0
+      </mat-error>
+  </mat-form-field>
+  <mat-form-field class="formItem">
+      <mat-label>Название города</mat-label>
+      <input matInput id="cityName" formControlName="cityName">
+      <mat-error *ngIf='this.AddNewZoneGroup.controls["cityName"].invalid
+      && (this.AddNewZoneGroup.controls["cityName"].dirty
+     || this.AddNewZoneGroup.controls["cityName"].touched)'>
+     Длина названия города не должна превышать 40 символов
+      </mat-error>
+  </mat-form-field>
+  <div>
+      <ng-container *ngIf="this.AddNewZoneGroup.invalid; else Valid">
+          <button mat-flat-button disabled>
+              Добавить новую зону
+          </button>
+      </ng-container>
+      <ng-template #Valid>
+          <button mat-flat-button style="background-color: rgb(17, 199, 17);" (click)="addNewZone()">
+              Добавить новую зону
+          </button>
+      </ng-template>
+  </div>
+</form>

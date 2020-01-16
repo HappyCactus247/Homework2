@@ -1,0 +1,23 @@
+.currentZone {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: 1fr;
+}
+
+.buttons {
+  display: grid;
+  grid-template-rows: 1;
+  grid-column-gap: 5px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.zoneList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
+
+mat-form-field {
+  width: 100%;
+}

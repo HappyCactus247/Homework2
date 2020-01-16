@@ -1,0 +1,56 @@
+<form>
+  <mat-form-field>
+      <input type="text" placeholder="Найти город" aria-label="City" matInput [formControl]="cityInput"
+          [matAutocomplete]="auto">
+      <mat-autocomplete (optionSelected)="GotSearch($event)" autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredListOfCitiesOfZones | async" [value]="option">
+              {{option}}
+          </mat-option>
+      </mat-autocomplete>
+  </mat-form-field>
+</form>
+<div class="zoneList">
+  <ng-container *ngIf='searchedZone == null; else ShowSearchedZone'>
+      <div *ngFor="let zone of this.localZones" class="currentZone">
+          <div>
+            Текущее местное время: {{getTimeWithOffset(zone.offset)}}
+          </div>
+          <div>
+            Часовой пояс: {{zone.offset}}
+          </div>
+          <div>
+            Название местоположения: {{zone.city}}
+          </div>
+          <div class="buttons">
+              <button [routerLink]='"edit/" + zone.id' mat-flat-button style="background-color: rgb(255, 217, 0);">
+                  Редактировать
+              </button>
+              <button (click)="deleteZone(zone.id)" mat-flat-button color="warn">
+                  Удалить
+              </button>
+          </div>
+      </div>
+  </ng-container>
+  <ng-template #ShowSearchedZone>
+      <div class="currentZone">
+          <div>
+            Текущее местное время: {{getTimeWithOffset(this.searchedZone.offset)}}
+          </div>
+          <div>
+            Часовой пояс: {{this.searchedZone.offset}}
+          </div>
+          <div>
+            Название местоположения: {{this.searchedZone.city}}
+          </div>
+          <div class="buttons">
+              <button [routerLink]='"edit/" + this.searchedZone.id' mat-flat-button
+                  style="background-color: rgb(255, 217, 0);">
+                  Редактировать
+              </button>
+              <button (click)="deleteZone(this.searchedZone.id)" mat-flat-button color="warn">
+                  Удалить
+              </button>
+          </div>
+      </div>
+  </ng-template>
+</div>
